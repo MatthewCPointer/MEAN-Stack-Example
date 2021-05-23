@@ -1,7 +1,9 @@
 const http = require('http');
+const expressApp = require('./backend/app');
 
-const server = http.createServer((req, res) => {
-  res.end('This is my first response');
-});
+const port = process.env.PORT || 3000;
 
-server.listen(process.env.PORT || 3000);
+expressApp.set('port', port);
+const server = http.createServer(expressApp);
+
+server.listen(port);
