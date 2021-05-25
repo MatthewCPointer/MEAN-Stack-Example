@@ -7,12 +7,12 @@ app.use('/api/posts' ,(req, res, next) => {
     {
       id: 'asdfasd123',
       title: 'This is our first server-side post',
-      content: 'This is data coming from the node server'
+      postDetails: 'This is data coming from the node server'
     },
     {
       id: 'asdfasd132',
       title: 'This is our second server-side post',
-      content: 'This is data coming from the node server'
+      postDetails: 'This is data coming from the node server'
     }
   ];
   res.status(200).json({
