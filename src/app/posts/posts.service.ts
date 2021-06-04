@@ -38,8 +38,12 @@ export class PostsService {
 
   addPost(postTitle: string, postContent: string) {
     const newPost: Post = {id: null, title: postTitle, postDetails: postContent};
+    this.httpClient.post<{message: string}>("http://localhost:3000/api/posts", newPost).subscribe((message) => {
+      console.log(message);
     this.posts.push(newPost);
     this.postsUpdated.next([...this.posts]);
+    });
+
   }
 
 }
