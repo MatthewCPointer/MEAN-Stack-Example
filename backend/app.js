@@ -5,7 +5,7 @@ const Post = require('./models/post');
 
 const app = express();
 
-mongoose.connect("mongodb+srv://MatthewCPointer:ru6OtHyBDq8u9CXX@mean-cluster.9glg3.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+mongoose.connect("mongodb+srv://MatthewCPointer:myTestPassword@mean-cluster.9glg3.mongodb.net/MEANDB?retryWrites=true&w=majority")
 .then(() => {
   console.log("Connected to database");
 })
@@ -28,6 +28,7 @@ app.post('/api/posts', (req, res, next) => {
     postDetails: req.body.postDetails
   });
   console.log(post);
+  post.save();
   res.status(201).json({
     message: "Post added successfully"
   }
@@ -35,22 +36,25 @@ app.post('/api/posts', (req, res, next) => {
 });
 
 app.get('/api/posts' ,(req, res, next) => {
-  const posts = [
-    {
-      id: 'asdfasd123',
-      title: 'This is our first server-side post',
-      postDetails: 'This is data coming from the node server'
-    },
-    {
-      id: 'asdfasd132',
-      title: 'This is our second server-side post',
-      postDetails: 'This is data coming from the node server'
-    }
-  ];
-  res.status(200).json({
-    msg: 'Posts Fetch Success',
-    posts: posts
+  // const posts = [
+  //   {
+  //     id: 'asdfasd123',
+  //     title: 'This is our first server-side post',
+  //     postDetails: 'This is data coming from the node server'
+  //   },
+  //   {
+  //     id: 'asdfasd132',
+  //     title: 'This is our second server-side post',
+  //     postDetails: 'This is data coming from the node server'
+  //   }
+  // ];
+  const posts = Post.find().then(documents => {
+    res.status(200).json({
+      msg: 'Posts Fetch Success',
+      posts: documents
+    });
   });
+
 });
 
 module.exports = app;
